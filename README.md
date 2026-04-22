@@ -61,41 +61,30 @@ graph TD
 ```
 ```mermaid
 classDiagram
+    direction LR
 
-    %% ─── Enums ───────────────────────────────────────────────
-    class RoleEnum {
-        <<enumeration>>
-        Supplies = 1
-        Manager = 2
-        Director = 3
-        Employee = 4
-    }
-
-    class StatusRequest {
-        <<enumeration>>
-        Created = 1
-        InReview = 2
-        Approved = 3
-        Cancelled = 4
-        Completed = 5
-        Resent = 6
-    }
-
-    class ActionEnum {
-        <<enumeration>>
-        Create = 0
-        Approve = 1
-        ReviewRequest = 2
-        Resend = 3
-        Conclusion = 4
-        Cancel = 5
-    }
-
-    %% ─── Models ──────────────────────────────────────────────
+    %% ─── Entidades Principais ───
     class CollaboratorModel {
         +int Id
         +string Name
         +RoleEnum role
+    }
+
+    class RequestModel {
+        +int Id
+        +decimal TotalValue
+        +StatusRequest Status
+        +bool IsApprovedBySupplies
+        +bool IsApprovedByManager
+        +bool IsApprovedByDirector
+        +Create() 
+        +UpdateTotal()
+    }
+
+    class RequestedItemModel {
+        +int Id
+        +int Quantity
+        +decimal TotalValue
     }
 
     class ItemModel {
@@ -104,110 +93,50 @@ classDiagram
         +decimal Value
     }
 
-    class RequestedItemModel {
-        +int Id
-        +int ItemId
-        +ItemModel? Item
-        +int Quantity
-        +decimal TotalValue
-    }
-
-    class RequestModel {
-        +int Id
-        +List~RequestedItemModel~ Items
-        +decimal TotalValue
-        +StatusRequest Status
-        +int RequesterId
-        +CollaboratorModel? Requester
-        +bool IsApprovedBySupplies
-        +bool IsApprovedByManager
-        +bool IsApprovedByDirector
-    }
-
     class RequestHistoryModel {
         +int Id
         +DateTime Date
-        +int CollaboratorId
-        +CollaboratorModel Collaborator
         +ActionEnum Action
-        +int RequestId
-        +RequestModel Request
     }
 
-    %% ─── Services ────────────────────────────────────────────
-    class CollaboratorService {
-        -AppDbContext _context
-        +CreateCollaboratorAsync(CollaboratorModel) Task~CollaboratorModel~
-        +GetCollaboratorsAsync() Task~List~CollaboratorModel~~
-    }
-
-    class ItemService {
-        -AppDbContext _context
-        +CreateItemAsync(ItemModel) Task~ItemModel~
-        +GetItemsAsync() Task~List~ItemModel~~
-    }
-
+    %% ─── Camada de Lógica (Services) ───
     class RequestService {
-        -AppDbContext _context
-        +UpdateTotalRequestedItem(RequestedItemModel) void
-        +UpdateTotalRequestAsync(RequestModel) Task
-        +DefineApprovalFlow(RequestModel) void
-        +CreateRequestAsync(RequestModel) Task~RequestModel~
-        +RequestAnalysisAsync(int, int, ActionEnum) Task
-        +EditRequestAsync(int, RequestModel) Task
-        +GetRequestByIdAsync(int) Task~RequestModel?~
-        +GetAllRequestsAsync() Task~List~RequestModel~~
-        +GetHistoryByRequestIdAsync(int) Task~List~RequestHistoryModel~~
+        <<Service>>
+        +DefineApprovalFlow()
+        +RequestAnalysisAsync()
+        +EditRequestAsync()
     }
 
-    %% ─── Controllers ─────────────────────────────────────────
-    class CollaboratorController {
-        -CollaboratorService _collaboratorService
-        +CreateCollaborator(CollaboratorModel) Task~ActionResult~
-        +GetAllCollaborators() Task~ActionResult~
-    }
+    %% ─── Enumerações ───
+    class RoleEnum { <<enumeration>> Supplies, Manager, Director, Employee }
+    class StatusRequest { <<enumeration>> Created, InReview, Approved, Cancelled, Completed }
+    class ActionEnum { <<enumeration>> Create, Approve, Review, Resend, Conclusion }
 
-    class ItemController {
-        -ItemService _itemService
-        +CreateItem(ItemModel) Task~ActionResult~
-        +GetAllItems() Task~ActionResult~
-    }
+    %% ─── Relacionamentos Estruturais ───
+    
+    %% Um Pedido tem vários itens (Composição)
+    RequestModel "1" *-- "*" RequestedItemModel : composition
+    
+    %% Um Item de Pedido aponta para um Produto/Item
+    RequestedItemModel "0..*" --> "1" ItemModel : references
+    
+    %% Um Pedido pertence a um Colaborador
+    RequestModel "0..*" o-- "1" CollaboratorModel : requester
+    
+    %% O Histórico conecta Pedido e quem fez a ação
+    RequestHistoryModel "0..*" --> "1" RequestModel : logs
+    RequestHistoryModel "0..*" --> "1" CollaboratorModel : actor
 
-    class RequestController {
-        -RequestService _requestService
-        +CreateRequest(RequestModel) Task~ActionResult~
-        +Analyze(int, int, ActionEnum) Task~IActionResult~
-        +EditRequest(int, RequestModel) Task~IActionResult~
-        +GetAllRequests() Task~ActionResult~
-        +GetRequestById(int) Task~ActionResult~
-        +GetRequestHistory(int) Task~ActionResult~
-    }
+    %% Camada de Serviço manipula as Models
+    RequestService ..> RequestModel : business logic
+    RequestService ..> RequestHistoryModel : records action
 
-    %% ─── Relationships ───────────────────────────────────────
+    %% Enums ligadas às classes
+    CollaboratorModel .. RoleEnum
+    RequestModel .. StatusRequest
+    RequestHistoryModel .. ActionEnum
 
-    %% Enum usage
-    CollaboratorModel --> RoleEnum : uses
-    RequestModel --> StatusRequest : uses
-    RequestHistoryModel --> ActionEnum : uses
-
-    %% Model associations
-    RequestModel "1" --> "0..*" RequestedItemModel : contains
-    RequestModel --> CollaboratorModel : Requester
-    RequestedItemModel --> ItemModel : references
-    RequestHistoryModel --> CollaboratorModel : performed by
-    RequestHistoryModel --> RequestModel : records
-
-    %% Controller → Service
-    CollaboratorController --> CollaboratorService : uses
-    ItemController --> ItemService : uses
-    RequestController --> RequestService : uses
-
-    %% Service → Model
-    CollaboratorService ..> CollaboratorModel : manages
-    ItemService ..> ItemModel : manages
-    RequestService ..> RequestModel : manages
-    RequestService ..> RequestedItemModel : manages
-    RequestService ..> RequestHistoryModel : manages
+    %% Estilização para visual profissional
+    style RequestModel fill:#f4f4f4,stroke:#333,stroke-width:2px
+    style RequestService fill:#e1f5fe,stroke:#01579b
 ```
-
-
