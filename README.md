@@ -135,5 +135,3 @@ classDiagram
     style StatusRequest fill:#fff9c4,stroke:#fbc02d,color:#000
     style ActionEnum fill:#fff9c4,stroke:#fbc02d,color:#000
 ```
-    style RequestService fill:#e1f5fe,stroke:#01579b
-```
