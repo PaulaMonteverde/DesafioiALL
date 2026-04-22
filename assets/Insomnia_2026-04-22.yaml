@@ -1,0 +1,393 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: My first collection
+meta:
+  id: wrk_86413dbeca0f42a3bf63fb1ec6dea485
+  created: 1776821034628
+  modified: 1776821034628
+  description: ""
+collection:
+  - url: https://localhost:7176/api/Collaborator
+    name: My first request
+    meta:
+      id: req_9a00abf36bbc4dedac446823e9c6af8f
+      created: 1776821034730
+      modified: 1776821289438
+      isPrivate: false
+      description: ""
+      sortKey: -1776821034730
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Paula"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Item
+    name: New Request
+    meta:
+      id: req_41b1976d5eba4d29b07df2cfbb916529
+      created: 1776824337493
+      modified: 1776824365399
+      isPrivate: false
+      description: ""
+      sortKey: -1776824337493
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{ "name": "Notebook Dell" }'
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request
+    name: New Request
+    meta:
+      id: req_2056fad942f24ccdad529c3f8b66654d
+      created: 1776824393488
+      modified: 1776825726240
+      isPrivate: false
+      description: ""
+      sortKey: -1776824393488
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "requesterId": 1,
+          "totalValue": 100.50,
+          "items": [
+            {
+              "itemId": 1,
+              "quantity": 2,
+              "totalValue": 100.50
+            }
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request
+    name: New Request
+    meta:
+      id: req_2d372ca8ec9643a893ae15bb6c9f8daa
+      created: 1776825828062
+      modified: 1776825860909
+      isPrivate: false
+      description: ""
+      sortKey: -1776825828062
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request/2
+    name: New Request
+    meta:
+      id: req_6bbdf66107b74476a6dadd210cd677fe
+      created: 1776825911425
+      modified: 1776826029608
+      isPrivate: false
+      description: ""
+      sortKey: -1776825911425
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request
+    name: New Request
+    meta:
+      id: req_5040789705df4e25b6ae35eb4b545452
+      created: 1776827299892
+      modified: 1776827336818
+      isPrivate: false
+      description: ""
+      sortKey: -1776827299892
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "requesterId": 1,
+          "totalValue": 50.00,
+          "items": [
+            {
+              "itemId": 1,
+              "quantity": 1,
+              "totalValue": 50.00
+            }
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request/5/Edit
+    name: New Request
+    meta:
+      id: req_e22c5ca807b246ab9375f94196737034
+      created: 1776827314923
+      modified: 1776827474768
+      isPrivate: false
+      description: ""
+      sortKey: -1776827314923
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "id": 5,
+          "requesterId": 1,
+          "totalValue": 1500.00,
+          "items": [
+            {
+              "itemId": 1,
+              "quantity": 3,
+              "totalValue": 1500.00
+            }
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request/5/analysis?collaboratorId=1&action=2
+    name: New Request
+    meta:
+      id: req_abadea90a980423b9405db0bc3afecd8
+      created: 1776827600617
+      modified: 1776827824116
+      isPrivate: false
+      description: ""
+      sortKey: -1776827600617
+    method: PUT
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request/9
+    name: New Request
+    meta:
+      id: req_3fa1b986d7fe45e0933bf2d1843a778b
+      created: 1776828056517
+      modified: 1776828402932
+      isPrivate: false
+      description: ""
+      sortKey: -1776828056517
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request
+    name: New Request
+    meta:
+      id: req_a166e082ad2241d493416a75a46ccd74
+      created: 1776828428461
+      modified: 1776828631222
+      isPrivate: false
+      description: ""
+      sortKey: -1776828428461
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "requesterId": 9999, 
+          "totalValue": 10.00,
+          "items": [
+            {
+              "itemId": 1,
+              "quantity": 1,
+              "totalValue": 10.00
+            }
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request/5/analysis?collaboratorId=1&action=4
+    name: New Request
+    meta:
+      id: req_e5249da8c39c4b4e8413709f8bc33168
+      created: 1776828663155
+      modified: 1776828701970
+      isPrivate: false
+      description: ""
+      sortKey: -1776828663155
+    method: PUT
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7176/api/Request/5/Edit
+    name: New Request
+    meta:
+      id: req_f8ffd23741c8429d9bfa8ef291ea16d7
+      created: 1776828733518
+      modified: 1776828767197
+      isPrivate: false
+      description: ""
+      sortKey: -1776828733518
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "id": 5,
+          "requesterId": 1,
+          "totalValue": 999.99,
+          "items": [
+            {
+              "itemId": 1,
+              "quantity": 10,
+              "totalValue": 999.99
+            }
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_f9982ba86b1c08e1e094da4e1a56fb3ab9ca702b
+    created: 1776821034635
+    modified: 1776821034635
+environments:
+  name: Base Environment
+  meta:
+    id: env_f9982ba86b1c08e1e094da4e1a56fb3ab9ca702b
+    created: 1776821034631
+    modified: 1776821034631
+    isPrivate: false
