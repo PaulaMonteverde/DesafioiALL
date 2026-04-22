@@ -107,10 +107,16 @@ classDiagram
     class StatusRequest { <<enumeration>> Created, InReview, Approved, Cancelled, Completed }
     class ActionEnum { <<enumeration>> Create, Approve, Review, Resend, Conclusion }
 
+    %% Conexões entre Classes
     RequestModel "1" *-- "*" RequestedItemModel
     RequestedItemModel "0..*" --> "1" ItemModel
     RequestModel "0..*" o-- "1" CollaboratorModel
     RequestHistoryModel "0..*" --> "1" RequestModel
     RequestHistoryModel "0..*" --> "1" CollaboratorModel
     RequestService ..> RequestModel
+
+    %% Ligações com os Enums (Dependência)
+    CollaboratorModel ..> RoleEnum : type
+    RequestModel ..> StatusRequest : type
+    RequestHistoryModel ..> ActionEnum : type
 ```
