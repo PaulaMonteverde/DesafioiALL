@@ -63,7 +63,10 @@ graph TD
 classDiagram
     direction LR
 
-    %% ─── Entidades Principais ───
+    %% Configuração de Cores Customizadas
+    %% (Fundo branco, texto preto e bordas nítidas)
+    callback all "attr:style:fill:#ffffff,stroke:#333,stroke-width:2px,color:#000000"
+
     class CollaboratorModel {
         +int Id
         +string Name
@@ -99,7 +102,6 @@ classDiagram
         +ActionEnum Action
     }
 
-    %% ─── Camada de Lógica (Services) ───
     class RequestService {
         <<Service>>
         +DefineApprovalFlow()
@@ -107,36 +109,31 @@ classDiagram
         +EditRequestAsync()
     }
 
-    %% ─── Enumerações ───
+    %% Enums em linha para economizar espaço
     class RoleEnum { <<enumeration>> Supplies, Manager, Director, Employee }
     class StatusRequest { <<enumeration>> Created, InReview, Approved, Cancelled, Completed }
     class ActionEnum { <<enumeration>> Create, Approve, Review, Resend, Conclusion }
 
-    %% ─── Relacionamentos Estruturais ───
-    
-    %% Um Pedido tem vários itens (Composição)
+    %% Relacionamentos
     RequestModel "1" *-- "*" RequestedItemModel : composition
-    
-    %% Um Item de Pedido aponta para um Produto/Item
     RequestedItemModel "0..*" --> "1" ItemModel : references
-    
-    %% Um Pedido pertence a um Colaborador
     RequestModel "0..*" o-- "1" CollaboratorModel : requester
-    
-    %% O Histórico conecta Pedido e quem fez a ação
     RequestHistoryModel "0..*" --> "1" RequestModel : logs
     RequestHistoryModel "0..*" --> "1" CollaboratorModel : actor
 
-    %% Camada de Serviço manipula as Models
     RequestService ..> RequestModel : business logic
     RequestService ..> RequestHistoryModel : records action
 
-    %% Enums ligadas às classes
-    CollaboratorModel .. RoleEnum
-    RequestModel .. StatusRequest
-    RequestHistoryModel .. ActionEnum
-
-    %% Estilização para visual profissional
-    style RequestModel fill:#f4f4f4,stroke:#333,stroke-width:2px
+    %% Estilização manual para garantir leitura total
+    style RequestModel fill:#ffffff,stroke:#333,color:#000
+    style RequestService fill:#e1f5fe,stroke:#01579b,color:#000
+    style CollaboratorModel fill:#ffffff,stroke:#333,color:#000
+    style ItemModel fill:#ffffff,stroke:#333,color:#000
+    style RequestedItemModel fill:#ffffff,stroke:#333,color:#000
+    style RequestHistoryModel fill:#ffffff,stroke:#333,color:#000
+    style RoleEnum fill:#fff9c4,stroke:#fbc02d,color:#000
+    style StatusRequest fill:#fff9c4,stroke:#fbc02d,color:#000
+    style ActionEnum fill:#fff9c4,stroke:#fbc02d,color:#000
+```
     style RequestService fill:#e1f5fe,stroke:#01579b
 ```
