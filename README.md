@@ -103,23 +103,14 @@ classDiagram
         +EditRequestAsync()
     }
 
-    %% Enums
     class RoleEnum { <<enumeration>> Supplies, Manager, Director, Employee }
     class StatusRequest { <<enumeration>> Created, InReview, Approved, Cancelled, Completed }
     class ActionEnum { <<enumeration>> Create, Approve, Review, Resend, Conclusion }
 
-    %% Relacionamentos
     RequestModel "1" *-- "*" RequestedItemModel
     RequestedItemModel "0..*" --> "1" ItemModel
     RequestModel "0..*" o-- "1" CollaboratorModel
     RequestHistoryModel "0..*" --> "1" RequestModel
     RequestHistoryModel "0..*" --> "1" CollaboratorModel
     RequestService ..> RequestModel
-
-    %% Estilização Simples (Compatível com GitHub)
-    style RequestModel fill:#fff,stroke:#333,stroke-width:2px
-    style RequestService fill:#b2ebf2,stroke:#00838f
-    style RoleEnum fill:#fff9c4,stroke:#fbc02d
-    style StatusRequest fill:#fff9c4,stroke:#fbc02d
-    style ActionEnum fill:#fff9c4,stroke:#fbc02d
 ```
