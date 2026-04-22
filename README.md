@@ -63,10 +63,6 @@ graph TD
 classDiagram
     direction LR
 
-    %% Configuração de Cores Customizadas
-    %% (Fundo branco, texto preto e bordas nítidas)
-    callback all "attr:style:fill:#ffffff,stroke:#333,stroke-width:2px,color:#000000"
-
     class CollaboratorModel {
         +int Id
         +string Name
@@ -80,8 +76,6 @@ classDiagram
         +bool IsApprovedBySupplies
         +bool IsApprovedByManager
         +bool IsApprovedByDirector
-        +Create() 
-        +UpdateTotal()
     }
 
     class RequestedItemModel {
@@ -109,29 +103,23 @@ classDiagram
         +EditRequestAsync()
     }
 
-    %% Enums em linha para economizar espaço
+    %% Enums
     class RoleEnum { <<enumeration>> Supplies, Manager, Director, Employee }
     class StatusRequest { <<enumeration>> Created, InReview, Approved, Cancelled, Completed }
     class ActionEnum { <<enumeration>> Create, Approve, Review, Resend, Conclusion }
 
     %% Relacionamentos
-    RequestModel "1" *-- "*" RequestedItemModel : composition
-    RequestedItemModel "0..*" --> "1" ItemModel : references
-    RequestModel "0..*" o-- "1" CollaboratorModel : requester
-    RequestHistoryModel "0..*" --> "1" RequestModel : logs
-    RequestHistoryModel "0..*" --> "1" CollaboratorModel : actor
+    RequestModel "1" *-- "*" RequestedItemModel
+    RequestedItemModel "0..*" --> "1" ItemModel
+    RequestModel "0..*" o-- "1" CollaboratorModel
+    RequestHistoryModel "0..*" --> "1" RequestModel
+    RequestHistoryModel "0..*" --> "1" CollaboratorModel
+    RequestService ..> RequestModel
 
-    RequestService ..> RequestModel : business logic
-    RequestService ..> RequestHistoryModel : records action
-
-    %% Estilização manual para garantir leitura total
-    style RequestModel fill:#ffffff,stroke:#333,color:#000
-    style RequestService fill:#e1f5fe,stroke:#01579b,color:#000
-    style CollaboratorModel fill:#ffffff,stroke:#333,color:#000
-    style ItemModel fill:#ffffff,stroke:#333,color:#000
-    style RequestedItemModel fill:#ffffff,stroke:#333,color:#000
-    style RequestHistoryModel fill:#ffffff,stroke:#333,color:#000
-    style RoleEnum fill:#fff9c4,stroke:#fbc02d,color:#000
-    style StatusRequest fill:#fff9c4,stroke:#fbc02d,color:#000
-    style ActionEnum fill:#fff9c4,stroke:#fbc02d,color:#000
+    %% Estilização Simples (Compatível com GitHub)
+    style RequestModel fill:#fff,stroke:#333,stroke-width:2px
+    style RequestService fill:#b2ebf2,stroke:#00838f
+    style RoleEnum fill:#fff9c4,stroke:#fbc02d
+    style StatusRequest fill:#fff9c4,stroke:#fbc02d
+    style ActionEnum fill:#fff9c4,stroke:#fbc02d
 ```
